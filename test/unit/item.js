@@ -2,7 +2,6 @@
 /* global describe, it, before, beforeEach */
 'use strict';
 
-
 var expect = require('chai').expect;
 var connect = require('../../app/lib/mongodb');
 var Mongo = require('mongodb');
@@ -67,14 +66,11 @@ describe('Item', function(){
               expect(couch._id).to.be.instanceof(Mongo.ObjectID);
               expect(bed._id).to.be.instanceof(Mongo.ObjectID);
               expect(chair._id).to.be.instanceof(Mongo.ObjectID);
-              //console.log(items);
               done();
             });
           });
         });
-      
       });
-
     });
   });
 });

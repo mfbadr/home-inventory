@@ -20,8 +20,6 @@ Item.find = function(query, cb){
   cItem.find(query).toArray(function(err, items){
     cb(items);
   });
-
-
 };
 
 
