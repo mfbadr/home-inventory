@@ -49,11 +49,32 @@ describe('Item', function(){
     it('should find all items in the mongo db', function(done){
       var couch = new Item('couch', 'living room', '5/3/2011', '1', '500');
       couch.save(function(){
-        Item.find(function(items){
+        Item.find({},function(items){
           expect(items).to.have.length(1);
           done();
-        });  
+        });
       });
+    });
+    it('should find a specfic object', function(done){
+      var couch = new Item('couch', 'living room', '5/3/2011', '1', '500');
+      var chair = new Item('chair', 'living room', '5/3/2011', '1', '500');
+      var bed = new Item('bed', 'living room', '5/3/2011', '1', '500');
+      couch.save( function(){
+        bed.save( function(){
+          chair.save(function(){
+            Item.find( {name:'couch'}, function(items){
+              expect(items).to.have.length(1);
+              expect(couch._id).to.be.instanceof(Mongo.ObjectID);
+              expect(bed._id).to.be.instanceof(Mongo.ObjectID);
+              expect(chair._id).to.be.instanceof(Mongo.ObjectID);
+              //console.log(items);
+              done();
+            });
+          });
+        });
+      
+      });
+
     });
   });
 });
