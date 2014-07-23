@@ -80,4 +80,31 @@ describe('Item', function(){
       expect(couchCost).to.equal(1000);
     });
   }); 
+  describe('.value', function(){
+    it('should give the total value of all items', function(done){
+      var couch1 = new Item('couch', 'bedroom', '5/3/2011', '3', '500');
+      var chair1 = new Item('chair', 'bedroom', '5/3/2011', '1', '500');
+      var bed1 = new Item('bed', 'bedroom', '5/3/2011', '1', '10');
+      var couch = new Item('couch', 'living room', '5/3/2011', '1', '500');
+      var chair = new Item('chair', 'living room', '5/3/2011', '1', '500');
+      var bed = new Item('bed', 'living room', '5/3/2011', '1', '500');
+      
+      couch.save (function(){
+        bed.save(function(){
+          chair.save(function(){
+            couch1.save(function(){
+              bed1.save(function(){
+                chair1.save(function(){
+                  Item.value( {name:'couch'}, function(value){
+                    expect(value).to.equal(2000);
+                    done();
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
 });
