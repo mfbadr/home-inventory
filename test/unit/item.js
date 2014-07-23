@@ -73,4 +73,11 @@ describe('Item', function(){
       });
     });
   });
+  describe('#value', function(){
+    it('should give the total value of an item', function(){
+      var couch = new Item('couch', 'living room', '5/3/2011', '2', '500');
+      var couchCost = couch.value();
+      expect(couchCost).to.equal(1000);
+    });
+  }); 
 });
